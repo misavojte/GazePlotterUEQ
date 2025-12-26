@@ -1,6 +1,6 @@
 """
 Generate a high-quality academic Dot Plot visualization for UEQ-S results.
-Reads ueqs_sheet.xlsx and creates ueq_results_figure.png.
+Reads ueqs_sheet.xlsx and creates ueq_results_figure.pdf.
 """
 
 from pathlib import Path
@@ -12,8 +12,8 @@ import numpy as np
 
 # Configuration
 EXCEL_FILE = Path("ueqs_sheet.xlsx")
-OUTPUT_FILE = Path("ueq_results_figure.png")
-DPI = 300
+OUTPUT_FILE = Path("ueq_results_figure.pdf")
+DPI = 600  # High resolution for line art (journal requirement)
 
 # UEQ scale range
 X_MIN = -3.0
@@ -391,7 +391,7 @@ def create_dot_plot(data: dict, benchmark_thresholds: dict, output_path: Path, d
     plt.tight_layout(rect=[0, 0.15, 1, 1])
     
     # Save figure at publication-quality resolution
-    # Use pad_inches for consistent margins
+    # PDF format is preferred for journal submissions (vector graphics)
     fig.savefig(
         output_path, 
         dpi=dpi, 
@@ -399,7 +399,7 @@ def create_dot_plot(data: dict, benchmark_thresholds: dict, output_path: Path, d
         pad_inches=0.1,      # Small padding for professional appearance
         facecolor="white",
         edgecolor="none",
-        format="png",
+        format="pdf",
         transparent=False,
     )
     print(f"Figure saved to: {output_path}")
